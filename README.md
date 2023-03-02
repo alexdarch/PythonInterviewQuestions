@@ -15,22 +15,5 @@ some available commands are:
 ```bash
 python myscript.py  # will now run inside the venv
 pytest # w
-```
-
-
-To run any file in this directory, run:
-
-```bash
-pipenv install # to install the venv
-pipenv sync # to install packages to the venv
-pipenv shell # to activate the venv
-pipenv run python myscript.py # to run the script "inside" the venv with all of the installed dependencies
-```
-
-
-if you do not have the right python version (check with `python --version` and `pipenv run python --version`) then try this in an elevated shell
-```bash
-python -m pip install --upgrade pip
-pipenv --rm
-pipenv install
+exit # this will exit the venv, so you can move onto the next question. Do not use `deactivate` as this leave pipenv in a confused state
 ```
