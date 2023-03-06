@@ -46,8 +46,7 @@ def lru_cache(func):
     lru_cache = LruCache()
     @functools.wraps(func)
     def inner(*args, **kwargs):
-        nonlocal lru_cache
-        key = args + tuple(sorted(kwargs.items()))
+        nonlocal lru_cache 
 
         # TODO: implement lru cache checking
 
@@ -64,6 +63,6 @@ You should also keep the name lru_cache for your data structure, otherwise the t
 
 Run `pipenv install` to get all of the packages
 Run `pipenv shell` to activate the venv
-Run `pytest` to run all of the tests
-Run `python run.py` to run a test script
+Run `pipenv run pytest` to run all of the tests
+Run `pipenv run python run.py` to run a test script
 

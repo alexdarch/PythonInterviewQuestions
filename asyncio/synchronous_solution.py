@@ -2,9 +2,9 @@ import requests
 from datetime import date, datetime, timedelta
 from typing import List
 
-URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime={0}&endtime={1}"
 
-def get_earthquakes(start_date: datetime, end_date: datetime) -> List[str]:
+def get_earthquakes_sync(start_date: datetime, end_date: datetime) -> List[str]:
+    URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime={0}&endtime={1}"
 
     all_dates = [start_date + timedelta(days=x) for x in range((end_date - start_date).days + 1)]
     dates = [datetime.strftime(x, "%Y-%m-%d") for x in all_dates 
@@ -16,7 +16,7 @@ def get_earthquakes(start_date: datetime, end_date: datetime) -> List[str]:
         features = [{'id': x['id'], 
                     'mag': x['properties']['mag']
                     } for x in data['features'] if x['properties']['mag'] is not None and x['properties']['mag'] >= 5.0]
-        print(f"[d1: {d1}, d2: {d2}]:  {len(features)} items")
+        # print(f"[d1: {d1}, d2: {d2}]:  {len(features)} items")
         all_features.extend(features)
     ids = [x['id'] for x in sorted(all_features, key=lambda x: x['mag'])]
     

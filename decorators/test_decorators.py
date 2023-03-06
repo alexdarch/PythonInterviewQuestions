@@ -1,12 +1,12 @@
 import functools
-import answer as a
+import solution as s
 
 def fibonacci(n):
     if n < 2:
         return n
     return fibonacci(n-2) + fibonacci(n-1)
 
-@a.lru_cache
+@s.lru_cache
 def lru_fibonacci(n):
     return fibonacci(n)
 
@@ -40,7 +40,7 @@ def test_correctness():
     
 def test_multi_arguments():
     # Test with multiple arguments and keyword arguments
-    @a.lru_cache
+    @s.lru_cache
     def add(a, b, c=None):
         return a + b + (c or 0)
     
@@ -50,7 +50,7 @@ def test_multi_arguments():
 
 def test_caching():
 
-    @a.lru_cache
+    @s.lru_cache
     def square(a):
         return a * a
     

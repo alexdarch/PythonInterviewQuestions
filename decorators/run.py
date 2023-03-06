@@ -1,6 +1,6 @@
-import answer as a
+import solution as s
 
-@a.lru_cache
+@s.lru_cache
 def fibonacci(n):
     if n < 2:
         return n

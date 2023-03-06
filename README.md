@@ -13,7 +13,7 @@ To create the venv and piplock file run `pipenv install`. This will install all 
 some available commands are:
 
 ```bash
-python myscript.py  # will now run inside the venv
-pytest # w
+pipenv run python myscript.py  # will now run inside the venv
+pipenv run pytest # w
 exit # this will exit the venv, so you can move onto the next question. Do not use `deactivate` as this leave pipenv in a confused state
 ```
