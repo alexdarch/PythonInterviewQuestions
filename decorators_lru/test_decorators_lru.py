@@ -16,7 +16,6 @@ def functools_fibonacci(n):
 
 ########################################### Benchmark tests ##########################################
 def test_baseline(benchmark):
-    print(os.environ['TEST'])
     func = lambda : fibonacci(20)
     result = benchmark(func)
     assert result == 6765

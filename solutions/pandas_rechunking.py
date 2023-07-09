@@ -1,30 +1,29 @@
 import pandas as pd
 from typing import List, Iterator
 
-def convert_to_fixed_size(dataframes: List[pd.DataFrame], fixed_size: int) -> Iterator[pd.DataFrame]:
-    current_dfs = []
+def rechunk_dataframes(dataframes: List[pd.DataFrame], fixed_size: int) -> Iterator[pd.DataFrame]:
+    curr_chunk = []
     for df in dataframes:
-        curr_df = df.copy()
         while True:
-            curr_len = sum(len(d) for d in current_dfs)
+            curr_len = sum(len(d) for d in curr_chunk)
             buffer = fixed_size - curr_len
 
-            current_dfs.append(curr_df[:buffer])
-            curr_df = curr_df[buffer:]
+            curr_chunk.append(df[:buffer])
+            df = df[buffer:]
 
-            # if we used up all of the curr_df, then move on to the next
-            if len(curr_df) == 0:
+            # if we used up all of the df, then move on to the next
+            if len(df) == 0:
                 break
 
-            # If there is something left in the curr_df then we have hit the fixed_size
-            # And therefore we yield the current_dfs, reset the current_dfs and continue
-            if len(curr_df) > 0:
-                yield pd.concat(current_dfs, ignore_index=True)
-                current_dfs = []
-                # If we are left with less than fixed then add to current and move to the next df, otherwise continue exhausting this df
-                if len(curr_df) < fixed_size:
-                    current_dfs = [curr_df]
+            # If there is something left in the df then we have hit the fixed_size
+            # And therefore we yield the curr_chunk, reset the curr_chunk and continue
+            if len(df) > 0:
+                yield pd.concat(curr_chunk, ignore_index=True)
+                curr_chunk = []
+                # Move to next df or, if too large to fit into the current chunk continue exhausting this df
+                if len(df) < fixed_size:
+                    curr_chunk.append(df)
                     break
-    remainder = pd.concat(current_dfs, ignore_index=True)
+    remainder = pd.concat(curr_chunk, ignore_index=True)
     if not remainder.empty:
         yield remainder

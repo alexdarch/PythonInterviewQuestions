@@ -26,7 +26,7 @@ def test_single_dataframe_smaller_than_fixed_size(dataframes):
     expected_output = [pd.DataFrame({'A': [1, 2, 3]})]
 
     # act
-    output = list(s.convert_to_fixed_size(dataframes, fixed_size))
+    output = list(s.rechunk_dataframes(dataframes, fixed_size))
 
     # assert
     assert len(output) == len(expected_output)
@@ -40,7 +40,7 @@ def test_single_dataframe_larger_than_fixed_size(dataframes):
     expected_output = [pd.DataFrame({'A': [1, 2, 3, 4]}), pd.DataFrame({'A': [5, 6]})]
 
     # act
-    output = list(s.convert_to_fixed_size(dataframes, fixed_size))
+    output = list(s.rechunk_dataframes(dataframes, fixed_size))
 
     # assert
     assert len(output) == len(expected_output)
@@ -55,7 +55,7 @@ def test_multiple_dataframes_combined_length_smaller_than_fixed_size(dataframes)
     expected_output = [pd.concat(dataframes, ignore_index=True)]
     
     # act
-    output = list(s.convert_to_fixed_size(dataframes, fixed_size))
+    output = list(s.rechunk_dataframes(dataframes, fixed_size))
 
     # assert
     assert len(output) == len(expected_output)
@@ -70,7 +70,7 @@ def test_multiple_dataframes_combined_length_larger_than_fixed_size(dataframes):
     expected_output = [pd.DataFrame({'A': [1, 2, 3, 4, 5, 6]}), pd.DataFrame({'A': [7, 8, 9, 10, 11, 12]})]
 
     # act
-    output = list(s.convert_to_fixed_size(dataframes, fixed_size))
+    output = list(s.rechunk_dataframes(dataframes, fixed_size))
 
     # assert
     assert len(output) == len(expected_output)
@@ -85,7 +85,7 @@ def test_empty_dataframes(dataframes):
     expected_output = []
     
     # act
-    output = list(s.convert_to_fixed_size(dataframes, fixed_size))
+    output = list(s.rechunk_dataframes(dataframes, fixed_size))
 
     # assert
     assert len(output) == len(expected_output)
@@ -143,7 +143,7 @@ def test_multi_column_dataframes(dataframes):
     ]
     
     # act
-    output = list(s.convert_to_fixed_size(dataframes, fixed_size))
+    output = list(s.rechunk_dataframes(dataframes, fixed_size))
 
     # assert
     assert len(output) == len(expected_output)
