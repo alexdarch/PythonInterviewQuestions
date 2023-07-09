@@ -1,6 +1,6 @@
 import functools
 import solution as s
-
+import os
 def fibonacci(n):
     if n < 2:
         return n
@@ -16,6 +16,7 @@ def functools_fibonacci(n):
 
 ########################################### Benchmark tests ##########################################
 def test_baseline(benchmark):
+    print(os.environ['TEST'])
     func = lambda : fibonacci(20)
     result = benchmark(func)
     assert result == 6765

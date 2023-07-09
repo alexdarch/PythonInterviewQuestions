@@ -7,6 +7,11 @@ pip --version # Should be 23.0.0 or higher
 pip install pipenv
 ```
 
+run the setup script
+```powershell
+.\setup.ps1
+```
+
 To create the venv and piplock file run `pipenv install`. This will install all of the packages necessary to run the question for you. 
 `pipenv shell` will activate the venv and all subsequent commands will be run inside the venv unless deactivated. E.g. pip install will install directly into the venv
 
@@ -14,6 +19,6 @@ some available commands are:
 
 ```bash
 pipenv run python myscript.py  # will now run inside the venv
-pipenv run pytest # w
+pipenv run pytest <project_path>
 exit # this will exit the venv, so you can move onto the next question. Do not use `deactivate` as this leave pipenv in a confused state
 ```
